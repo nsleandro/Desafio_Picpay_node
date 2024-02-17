@@ -1,0 +1,200 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio_Picpay_node",
+        "description": "This project is inspired by the picpay backend challenge, at the link: https://github.com/PicPay/picpay-desafio-backend?tab=readme-ov-file .",
+        "version": "1.0.0",
+        "contact": {
+            "email": "leandronstrab@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8081/v1",
+            "description": "API test"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "summary": "User registration",
+                "description": "Create a new user CPF or CNPJ.",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSchema"     
+                            },
+                            "examples": {
+                                "user1":{
+                                    "value": {
+                                        "user": {
+                                            "name": "teste1",
+                                            "password": "12345678",
+                                            "email": "teste1@gmail.com",
+                                            "document": "804.608.240-66"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get registered users",
+                "description": "Get registered users",
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "type": "object",
+                                "schema": {
+                                    "items": {
+                                        "$ref":"#/components/schemas/User"
+                                    }
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Get registered user by id",
+                "description": "Get registered user by id",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "type": "object",
+                                "schema": {
+                                    "$ref":"#/components/schemas/User"
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserSchema": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "document": {
+                                "type": "string"
+                            }
+                        }
+                    }                   
+                }                
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "typeDocument": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    }                    
+                }              
+            },
+            "APIError": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "statusCode": {
+                        "type": "number"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            }
+
+        }
+    }
+}
