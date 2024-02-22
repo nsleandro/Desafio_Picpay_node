@@ -31,7 +31,7 @@ export async function saveUser(userSchema: UserSchema) {
         const type = userFind.email === userSchema.email
         throw new APIError(
             type ? 'Email already in use!' : 'Document already in use!',
-            "USR" + "001",
+            idFileApiError + "001",
             type ? 'Document already in use!' : 'Document already in use!',
             409,
             userSchema
