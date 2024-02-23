@@ -17,4 +17,7 @@ export default abstract class Database {
         }
     }
 
+    static getManager() {
+        return  this.connection.manager      
+    }
 }

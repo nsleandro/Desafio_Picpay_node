@@ -1,7 +1,7 @@
 import { plainToInstance } from "class-transformer";
 import crypto from "crypto";
 import { APIError } from "../../../@types/types";
-import AccountBank from "../../entities/AccountBank.entity";
+import UsersAccounts from "../../entities/UsersAccounts.entity";
 import Users from "../../entities/Users.entity";
 import { UsersTypeDocumentEnum } from "../../services/enum/users.enum";
 import { UserSchema } from "../../services/schemas/users.schema";
@@ -9,7 +9,7 @@ import { UserSchema } from "../../services/schemas/users.schema";
 const idFileApiError = 'USR'
 
 async function saveAccountBank(userId: number, balanceInital: number) {
-    return await AccountBank.save({
+    return await UsersAccounts.save({
         balance: balanceInital,
         userId
     })
@@ -48,7 +48,7 @@ export async function saveUser(userSchema: UserSchema) {
     const user = await Users.save(create)
     const accountsBank = await saveAccountBank(user.id, 2000)
 
-    user.accountsBank = [
+    user.usersAccounts = [
         accountsBank
     ]
 
@@ -58,7 +58,7 @@ export async function saveUser(userSchema: UserSchema) {
 export async function getUsers() {
     const users = await Users.find({
         relations: {
-            accountsBank: true
+            usersAccounts: true
         }
     })
 
@@ -71,7 +71,7 @@ export async function getUser(id: number) {
             id
         },
         relations: {
-            accountsBank: true
+            usersAccounts: true
         }
     })
 

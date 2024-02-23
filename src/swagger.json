@@ -122,6 +122,65 @@
                     }
                 }
             }
+        },
+        "/users/transations": {
+            "post": {
+                "summary": "Monetary transactions between users",
+                "description": "Monetary transactions between users.",
+                "tags": ["transations"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserTransationsSchema"     
+                            },
+                            "examples": {
+                                "transation1":{
+                                    "value": {
+                                        "transation": {
+                                            "payerId": 1,
+                                            "receiverId": 2,
+                                            "value": 30.00
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/UserTransations"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested resource was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -173,6 +232,45 @@
                         "type": "string"
                     }                    
                 }              
+            },
+            "UserTransationsSchema": {
+                "type": "object",
+                "properties": {
+                    "transation": {
+                        "type": "object",
+                        "properties": {
+                            "payerId": {
+                                "type": "number"
+                            },
+                            "receiverId": {
+                                "type": "number"
+                            },
+                            "value": {
+                                "type": "number"
+                            }   
+                        }
+                    }
+                }
+            },
+            "UserTransations": {
+                "type": "object",
+                "properties": {
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "payerAccountId": {
+                        "type": "number"
+                    },
+                    "receiverAccountId": {
+                        "type": "number"
+                    },
+                    "balance": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    }
+                }
             },
             "APIError": {
                 "type": "object",
