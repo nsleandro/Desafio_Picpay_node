@@ -2,12 +2,12 @@ version: '2'
 name: picpay
 services:
   mysql:
+    image: mysql:8
     build:
       context: .
       dockerfile: mysql.Dockerfile
     ports:
       - "3306:3306"
-    command: --sql-mode="NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES"
     environment:
       MYSQL_ROOT_PASSWORD: p1i2c3@pay
       MYSQL_DATABASE: picpay
@@ -15,7 +15,6 @@ services:
       MYSQL_PASSWORD: p1i2c3@pay
     volumes:
       - ./data:/var/lib/mysql
-
     networks:
       - picpay
 
@@ -27,9 +26,11 @@ services:
       context: './'
       dockerfile: node.Dockerfile
     volumes: 
-      - .:/api
+      - .:/usr/src/app
     ports:
       - 8081:8081
+    networks:
+      - picpay
 
 networks:
   picpay:

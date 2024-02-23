@@ -6,7 +6,6 @@ import swaggerDocs from './swagger.json'
 
 require("custom-env").env(true);
 
-
 const app = express()
 const port = process.env.PORT || 8081
 

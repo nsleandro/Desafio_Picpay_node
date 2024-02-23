@@ -74,7 +74,7 @@ export async function getUser(id: number) {
             usersAccounts: true
         }
     })
-
+    
     return user
 }
 

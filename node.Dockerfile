@@ -1,6 +1,7 @@
 FROM node:14
 
-WORKDIR /api
+WORKDIR /usr/src/app
+RUN npm install -g nodemon
 
 COPY package.json .
 RUN npm install
