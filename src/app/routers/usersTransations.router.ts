@@ -19,7 +19,6 @@ userTransationsRouter.post('/',
     async (schema: UserTransationsSchema, _req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const result = await saveUserTransations(schema)
-            console.log("🚀 ~ result:", result)
             res.status(200).json(result)
         }
         catch (error) {
