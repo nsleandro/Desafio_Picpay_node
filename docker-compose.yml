@@ -25,6 +25,8 @@ services:
     build: 
       context: './'
       dockerfile: node.Dockerfile
+    environment:
+      DB_HOST: mysql
     volumes: 
       - .:/usr/src/app
     ports:
